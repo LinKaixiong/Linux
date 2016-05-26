@@ -65,6 +65,7 @@ epoll.jpg
 
 epoll数据结构示意图
 
+
 从上面的讲解可知：通过红黑树和双链表数据结构，并结合回调机制，造就了epoll的高效。
 
 OK，讲解完了Epoll的机理，我们便能很容易掌握epoll的用法了。一句话描述就是：三步曲。
@@ -76,6 +77,21 @@ OK，讲解完了Epoll的机理，我们便能很容易掌握epoll的用法了�
 第三部：epoll_wait()系统调用。通过此调用收集收集在epoll监控中已经发生的事件。
 
 最后，附上一个epoll编程实例。(作者为sparkliang)
+
+struct epoll_event
+ {
+   uint32_t events;  /* Epoll events */
+   epoll_data_t data;    /* User data variable */
+ } __attribute__ ((__packed__));
+
+ typedef union epoll_data
+ {
+   void *ptr;
+   int fd;
+   uint32_t u32;
+   uint64_t u64;
+ } epoll_data_t;
+ 
 //   
 // a simple echo server using epoll in linux  
 //   
